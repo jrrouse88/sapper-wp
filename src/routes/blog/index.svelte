@@ -1,6 +1,6 @@
 <script context="module">
 	export function preload() {
-		return this.fetch(`http://dashboard.saptest.com/wp-json/wp/v2/posts`).then(r => r.json()).then(posts => {
+		return this.fetch(`http://dashboard.sapper.com/wp-json/wp/v2/posts`).then(r => r.json()).then(posts => {
 			return { posts };
 		});
 	}

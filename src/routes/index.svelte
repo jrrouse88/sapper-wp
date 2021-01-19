@@ -1,4 +1,13 @@
+<script context="module">
+	export function preload() {
+		return this.fetch(`http://dashboard.sapper.com/wp-json/acf/v3/pages/17`).then(r => r.json()).then(fields => {
+			return { fields };
+		});
+	}
+</script>
+
 <script>
+	export let fields;
 	import successkid from 'images/successkid.jpg';
 </script>
 
@@ -48,3 +57,6 @@
 </figure>
 
 <p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+
+<img alt="Client" src="{fields.acf.client_image.url}">
+<p>{fields.acf.client_testimony}</p>
