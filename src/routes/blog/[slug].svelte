@@ -54,7 +54,7 @@
 </style>
 
 <svelte:head>
-	<title>{post.title}</title>
+	<title>{post.title.rendered}</title>
 </svelte:head>
 
 <h1>{post.title.rendered}</h1>
