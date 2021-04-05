@@ -1,5 +1,16 @@
-import posts from './_posts.js';
+import {getPosts} from './_posts.js';
 
+export async function get(req, res) {
+	try {
+		const result = await getPosts();
+		// console.log(result);
+		res.end(JSON.stringify(result));
+	} catch(e) {
+		console.error('index.json.js get:', e);
+		res.status(500).json({error: e.message})
+	}
+}
+// let posts = [];
 // const contents = JSON.stringify(posts.map(post => {
 // 	return {
 // 		title: post.title,
@@ -7,12 +18,12 @@ import posts from './_posts.js';
 // 	};
 // }));
 
-let contents = [];
+// let contents = [];
 
-export function get(req, res) {
-	res.writeHead(200, {
-		'Content-Type': 'application/json'
-	});
+// export function get(req, res) {
+// 	res.writeHead(200, {
+// 		'Content-Type': 'application/json'
+// 	});
 
-	res.end(contents);
-}
+// 	res.end(contents);
+// }

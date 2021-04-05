@@ -1,5 +1,6 @@
 import sirv from 'sirv';
 import polka from 'polka';
+import {json} from 'body-parser';
 import compression from 'compression';
 import * as sapper from '@sapper/server';
 
@@ -12,6 +13,7 @@ polka() // You can also use Express
 		sirv('static', { dev }),
 		sapper.middleware()
 	)
+	.use(json())
 	.listen(PORT, err => {
 		if (err) console.log('error', err);
 	});
