@@ -4,7 +4,7 @@ export async function get(req, res) {
 	try {
 		const result = await getPosts();
 		// console.log(result);
-		res.end(JSON.stringify(result));
+		res.end(result);
 	} catch(e) {
 		console.error('index.json.js get:', e);
 		res.status(500).json({error: e.message})

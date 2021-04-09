@@ -1,15 +1,9 @@
 <script context="module">
 	export async function preload() {
 		try {
-			const res = await this.fetch('blog.json');
-			if(res.ok) {
-				const posts = await res.json();
-				console.log(posts);
-				return posts;
-			} else {
-				const msg = await res.text;
-				this.error(res.statusCode, 'Posts preload: ' + msg)
-			}
+			return this.fetch(`blog.json`).then(r => r.json()).then(posts => {
+				return { posts };
+			});
 		} catch(e) {
 			this.error(500, 'Posts preload error: ' + e.message);
 		}
@@ -17,10 +11,8 @@
 </script>
 
 <script>
-	export let posts = [];
-
+	export let posts;
 	let error = '';
-	console.log(posts);
 </script>
 
 <style>
@@ -39,13 +31,15 @@
 <ul>
 	{#if error}
 		<div class="error">Error: {error}</div>
+	{:else if (posts.length < 1)}
+		<div class="error">Sorry, looks like there are no posts.</div>
 	{:else}
 		{#each posts as post}
 			<!-- we're using the non-standard `rel=prefetch` attribute to
 					tell Sapper to load the data for the page as soon as
 					the user hovers over the link or taps it, instead of
 					waiting for the 'click' event -->
-			<li>{post.title.rendered}</li>
+			<li><a rel=prefetch href="/{post.slug}">{post.title.rendered}</a></li>
 		{/each}
 	{/if}
 </ul>
